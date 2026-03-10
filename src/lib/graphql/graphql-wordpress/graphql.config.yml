@@ -1,0 +1,6 @@
+schema: wordpress-schema.graphql
+documents: '*.graphql|*.gql'
+extensions:
+  endpoints:
+    main:
+      url: https://test.akfgfragments.com/graphql

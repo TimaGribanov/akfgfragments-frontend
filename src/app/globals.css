@@ -31,3 +31,11 @@ a:hover:not(#logo):not(.button) {
     @apply underline decoration-10 decoration-(--link-underline-colour) dark:decoration-(--link-underline-colour-dark) -underline-offset-3;
     text-decoration-skip-ink: none;
 }
+
+main {
+    padding: 1rem;
+}
+
+h2 {
+    font-size: var(--text-xl);
+}

@@ -1,0 +1,8 @@
+overwrite: true
+schema: "src/lib/graphql/graphql-wordpress/wordpress-schema.graphql"
+documents: "src/lib/graphql/graphql-wordpress/*.gql"
+generates:
+  src/types/wordpress.d.ts:
+    plugins:
+      - typescript
+      - typescript-operations

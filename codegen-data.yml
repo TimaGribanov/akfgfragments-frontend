@@ -1,0 +1,8 @@
+overwrite: true
+schema: "src/lib/graphql/graphql-data/data-schema.graphql"
+documents: "src/lib/graphql/graphql-data/*.gql"
+generates:
+  src/types/akfgfragments-data-server.d.ts:
+    plugins:
+      - typescript
+      - typescript-operations

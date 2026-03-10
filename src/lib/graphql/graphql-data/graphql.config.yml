@@ -1,0 +1,6 @@
+schema: data-schema.graphql
+documents: '*.graphql'
+extensions:
+  endpoints:
+    main:
+      url: http://104.248.142.131:3333/graphql

@@ -16,7 +16,7 @@
 }
 
 .sidebar-block > *:not(:last-child) {
-    @apply text-center !mb-3;
+    @apply text-center mb-3!;
 }
 
 .sidebar-block .button {

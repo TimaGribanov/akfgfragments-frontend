@@ -1,82 +1,151 @@
-import {getApolloClient} from '@/lib/appolo-client'
-import {gql} from '@apollo/client'
+'use client'
 
-type Post = {
+import { useQuery } from '@apollo/client/react'
+import GET_PAGINATED_POSTS from '@/lib/graphql/graphql-wordpress/requests/paginated_posts.gql'
+import PostPreviewBlock from '@/app/components/PostPreviewBlock'
+import '@/app/components/feed.css'
+import React from 'react'
+
+export interface PostPreview {
     node: {
-        authorId: string,
-        excerpt: string,
         id: string,
-        link: string,
         featuredImage: {
             node: {
                 link: string
             }
-        }
-    }
-}
-
-type WpData = {
-    data: {
-        posts: {
-            edges: Post[]
-        }
-    }
-}
-
-const query = gql`
-    query getPosts($language: LanguageCodeFilterEnum!) {
-        posts(first: 10, where: {language: $language}) {
-            edges {
-                node {
-                    authorId
-                    excerpt
-                    id
-                    link
-                    featuredImage {
-                        node {
-                            link
-                        }
+        },
+        title: string,
+        date: string,
+        author: {
+            node: {
+                name: string
+            }
+        },
+        tags: {
+            nodes: {
+                name: string,
+                translations: {
+                    name: string,
+                    language: {
+                        code: string
                     }
                 }
             }
-        }
-    }
-`
-
-const getPosts = async (locale: string) => {
-    const graphql = getApolloClient()
-    const language = locale.toUpperCase()
-
-    try {
-        return await graphql.query({
-            query: query,
-            variables: {
-                language
-            }
-        })
-    } catch (e) {
-        console.log(e)
-        return null
+        },
+        excerpt: string,
+        link: string,
     }
 }
 
-export async function getStaticProps({locale}: {locale: string}) {
-    const data: WpData = await getPosts(locale)
-
-    const posts: Post[] = data?.data.posts.edges
-
-    return {
-        props: { posts }
+interface FeedData {
+    posts: {
+        pageInfo: {
+            hasNextPage: boolean,
+            hasPreviousPage: boolean,
+            startCursor: string,
+            endCursor: string
+        },
+        edges: PostPreview[]
     }
 }
 
-const Feed = ({ posts }) => {
+const updateQuery = (previousResult: FeedData, { fetchMoreResult }: { fetchMoreResult: FeedData }): FeedData => {
+    return fetchMoreResult.posts.edges.length ? fetchMoreResult : previousResult
+}
 
+const FeedList = (
+    {
+        data,
+        fetchMore,
+        locale
+    }:
+    {
+        data: FeedData,
+        fetchMore: any,
+        locale: string
+    }) => {
+    const { posts } = data
+
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone
 
     return (
-        <div>
-
+        <div className="feed">
+            {
+                //TODO: proper errors
+            }
+            {posts && posts.edges ? (
+                <div>
+                    {posts.edges.map((edge: PostPreview) => {
+                        return <PostPreviewBlock key={edge.node.id} post={edge} locale={locale} timezone={tz} />
+                    })}
+                    <div>
+                        {posts.pageInfo.hasPreviousPage ? (
+                            <button
+                                onClick={() => {
+                                    fetchMore({
+                                        variables: {
+                                            first: null,
+                                            last: 10,
+                                            before: posts.pageInfo.startCursor || null,
+                                            after: null
+                                        },
+                                        updateQuery
+                                    })
+                                }}
+                            >
+                                Previous
+                            </button>
+                        ) : null}
+                        {posts.pageInfo.hasNextPage ? (
+                            <button
+                                onClick={() => {
+                                    fetchMore({
+                                        variables: {
+                                            first: 10,
+                                            last: null,
+                                            before: null,
+                                            after: posts.pageInfo.endCursor || null
+                                        },
+                                        updateQuery
+                                    })
+                                }}
+                            >
+                                Next
+                            </button>
+                        ) : null}
+                    </div>
+                </div>
+            ) : (
+                <div>No posts were found...</div>
+            )}
         </div>
+    )
+}
+
+const Feed = ({ locale }: { locale: string }) => {
+    const variables = {
+        first: 10,
+        last: null,
+        before: null,
+        after: null,
+        language: locale.toUpperCase()
+    }
+
+    const { data, error, loading, fetchMore } = useQuery<FeedData>(GET_PAGINATED_POSTS, {
+        variables,
+        context: { apiName: 'wp' }
+    })
+
+    //TODO: make a proper error
+    if (error || data === undefined)
+        return <pre>{JSON.stringify(error)}</pre>
+
+    //TODO: make proper loading
+    if (loading)
+        return <div>Loading...</div>
+
+    return (
+        <FeedList data={data} fetchMore={fetchMore} locale={locale} />
     )
 }
 

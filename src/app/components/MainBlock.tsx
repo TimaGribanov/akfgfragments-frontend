@@ -1,5 +1,3 @@
-'use client'
-
 import Main from '@/app/components/Main'
 import Sidebar from '@/app/components/Sidebar'
 

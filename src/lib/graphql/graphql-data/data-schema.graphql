@@ -1,0 +1,222 @@
+"akfgfragments GraphQL schema description"
+schema @contact(description : "", name : "akfgfragments.com", url : "https://github.com/TimaGribanov/akfgfragments-graphql-server"){
+    query: Query
+}
+
+"Provides contact information of the owner responsible for this subgraph schema."
+directive @contact(description: String!, name: String!, url: String!) on SCHEMA
+
+"Marks the field, argument, input field or enum value as deprecated"
+directive @deprecated(
+    "The reason for the deprecation"
+    reason: String = "No longer supported"
+) on FIELD_DEFINITION | ARGUMENT_DEFINITION | ENUM_VALUE | INPUT_FIELD_DEFINITION
+
+"Directs the executor to include this field or fragment only when the `if` argument is true"
+directive @include(
+    "Included when true."
+    if: Boolean!
+) on FIELD | FRAGMENT_SPREAD | INLINE_FRAGMENT
+
+"Indicates an Input Object is a OneOf Input Object."
+directive @oneOf on INPUT_OBJECT
+
+"Directs the executor to skip this field or fragment when the `if` argument is true."
+directive @skip(
+    "Skipped when true."
+    if: Boolean!
+) on FIELD | FRAGMENT_SPREAD | INLINE_FRAGMENT
+
+"Exposes a URL that specifies the behaviour of this scalar."
+directive @specifiedBy(
+    "The URL that specifies the behaviour of this scalar."
+    url: String!
+) on SCALAR
+
+interface CreditedEntry {
+    amazonMusic: String
+    appleMusic: String
+    band: String!
+    deezer: String
+    spotify: String
+    titleBelarusian: String
+    titleEnglish: String
+    titleGerman: String
+    titleIndonesian: String
+    titleItalian: String
+    titleJapanese: String
+    titleRomaji: String
+    titleRussian: String
+    titleUkrainian: String
+    ytMusic: String
+}
+
+type Credits {
+    creditType: String!
+    id: Int!
+    person: Person!
+    relationType: CreditedEntryType!
+    releaseOrSong: CreditedEntry!
+}
+
+"A model to describe the Linktree entity"
+type Linktree {
+    header: String!
+    id: Int!
+    image: String!
+    urlBelarusian: String
+    urlEnglish: String
+    urlGerman: String
+    urlIndonesian: String
+    urlItalian: String
+    urlJapanese: String
+    urlRussian: String
+    urlSpanish: String
+    urlUkrainian: String
+}
+
+"A model to describe the Lyrics entity"
+type Lyrics {
+    band: String!
+    lang: Language!
+    songTitle: String!
+    source: String!
+    sourceType: SourceType!
+    text: String!
+}
+
+"A model to describe the Music Video entity"
+type MusicVideo {
+    director: String
+    id: Int!
+    mvTitle: String!
+    song: String!
+    type: MusicVideoType!
+    url: String!
+    year: Int!
+}
+
+"A model to describe the Person entity"
+type Person {
+    id: Int!
+    nameBelarusian: String
+    nameEnglish: String!
+    nameJapanese: String!
+    nameRussian: String
+    nameUkrainian: String
+}
+
+type Query {
+    getAllLinks: [Linktree!]!
+    getAllMusicVideos: [MusicVideo!]!
+    getAllPeople: [Person!]!
+    getAllReleases: [Release!]!
+    getAllSongs: [Song!]!
+    getCredits(title: String!, type: CreditedEntryType!): Credits!
+    getLinktree(id: Int!): Linktree!
+    getLyrics(lang: Language!, songTitle: String!): Lyrics!
+    getMusicVideoByTitle(title: String!): MusicVideo!
+    getPersonByName(name: String!): Person!
+    getReleaseByName(name: String!): Release!
+    getReleaseVariants(masterReleaseId: Int!): [ReleaseVariants!]!
+    getReleasesByBand(band: String!): [Release!]!
+    getReleasesByType(type: String!): [Release!]!
+    getSongByName(name: String!): Song!
+    getSongsByBand(band: String!): [Song!]!
+    getTracklist(release: String!): Tracklist!
+}
+
+"A model to describe the Release entity"
+type Release implements CreditedEntry {
+    amazonMusic: String
+    appleMusic: String
+    band: String!
+    coverUri: String
+    deezer: String
+    id: Int!
+    spotify: String
+    titleBelarusian: String
+    titleEnglish: String
+    titleGerman: String
+    titleIndonesian: String
+    titleItalian: String
+    titleJapanese: String
+    titleRomaji: String
+    titleRussian: String
+    titleUkrainian: String
+    type: String!
+    ytMusic: String
+}
+
+"A model to describe the ReleaseVariants entity"
+type ReleaseVariants {
+    catalogueNumber: String!
+    comment: String
+    coverUri: String
+    description: String
+    format: String!
+    id: Int!
+    masterReleaseId: Int!
+    masterReleaseTitle: String!
+    releaseDate: String!
+}
+
+"A model to describe the Song entity"
+type Song implements CreditedEntry {
+    amazonMusic: String
+    appleMusic: String
+    band: String!
+    deezer: String
+    spotify: String
+    titleBelarusian: String
+    titleEnglish: String
+    titleGerman: String
+    titleIndonesian: String
+    titleItalian: String
+    titleJapanese: String
+    titleRomaji: String
+    titleRussian: String
+    titleUkrainian: String
+    ytMusic: String
+}
+
+"A model to describe the Tracklist entity"
+type Tracklist {
+    release: String!
+    tracklist: [TracklistEntry!]!
+}
+
+type TracklistEntry {
+    additionalInfo: String!
+    track: String!
+}
+
+enum CreditedEntryType {
+    RELEASE
+    SONG
+}
+
+enum Language {
+    BELARUSIAN
+    ENGLISH
+    FRENCH
+    GERMAN
+    INDONESIAN
+    ITALIAN
+    JAPANESE
+    PORTUGUESE
+    ROMAJI
+    RUSSIAN
+    SPANISH
+    UKRAINIAN
+}
+
+enum MusicVideoType {
+    LOCAL
+    YOUTUBE
+}
+
+enum SourceType {
+    FAN
+    OFFICIAL
+}

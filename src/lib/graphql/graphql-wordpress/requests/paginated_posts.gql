@@ -1,0 +1,35 @@
+query getPaginatedPosts(
+    $first: Int,
+    $last: Int,
+    $after: String,
+    $before: String,
+    $language: LanguageCodeFilterEnum
+) {
+    posts(first: $first, last: $last, after: $after, before: $before, where: {language: $language}) {
+        pageInfo {
+            hasNextPage
+            hasPreviousPage
+            startCursor
+            endCursor
+        }
+        edges {
+            node {
+                id
+                featuredImage {
+                    node {
+                        link
+                    }
+                }
+                title
+                date
+                author {
+                    node {
+                        name
+                    }
+                }
+                excerpt
+                link
+            }
+        }
+    }
+}

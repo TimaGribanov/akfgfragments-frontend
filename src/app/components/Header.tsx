@@ -1,15 +1,15 @@
 'use client'
 
-import {useTranslations} from 'use-intl'
-import {LOCALES} from '@/constants'
-import {Link, useRouter, usePathname} from '@/i18n/navigation'
-import {useLocale} from 'next-intl'
+import { useTranslations } from 'use-intl'
+import { LOCALES } from '@/constants'
+import { Link, useRouter, usePathname } from '@/i18n/navigation'
+import { useLocale } from 'next-intl'
 import Image from 'next/image'
-import {Button, Fieldset, Input, Menu, MenuButton, MenuItem, MenuItems} from '@headlessui/react'
-import {ChevronDownIcon} from '@heroicons/react/16/solid'
-import {MagnifyingGlassIcon, MoonIcon, SunIcon} from '@heroicons/react/24/outline'
-import React, {useEffect, useState} from 'react'
-import {useTheme} from 'next-themes'
+import { Button, Fieldset, Input, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
+import { ChevronDownIcon } from '@heroicons/react/16/solid'
+import { MagnifyingGlassIcon, MoonIcon, SunIcon } from '@heroicons/react/24/outline'
+import React, { useEffect, useState } from 'react'
+import { useTheme } from 'next-themes'
 
 const Logo = () => (
     <Link id="logo" href="/" className="flex items-center">
@@ -61,7 +61,7 @@ const LanguagePicker = () => {
 
 
     const handleLanguages = (code: string) => {
-        router.replace(pathname, {locale: code})
+        router.replace(pathname, { locale: code })
     }
 
     return (
@@ -89,7 +89,7 @@ const LanguagePicker = () => {
 }
 
 const ThemeToggle = () => {
-    const {theme, setTheme} = useTheme()
+    const { theme, setTheme } = useTheme()
     const [mounted, setMounted] = useState(false)
 
     // Avoid hydration mismatch

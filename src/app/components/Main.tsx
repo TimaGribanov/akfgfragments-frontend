@@ -1,6 +1,6 @@
 import Feed from '@/app/components/Feed'
 
-const Main = ({locale}: { locale: string }) => {
+const Main = ({ locale }: { locale: string }) => {
     return (
         <main className="w-3/4">
             <Feed locale={locale} />

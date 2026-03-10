@@ -1,0 +1,18 @@
+.feed {
+    display: flex;
+    flex-flow: column;
+    gap: 1.5rem;
+}
+
+.post {
+    width: 60%;
+    margin: 0 auto;
+}
+
+.post>div>p {
+    margin-top: 0.25rem;
+}
+
+.author, .more-links {
+    font-style: italic;
+}

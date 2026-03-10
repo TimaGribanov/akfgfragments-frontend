@@ -11,6 +11,10 @@
       "the-band": "The Band"
     }
   },
+  "Feed": {
+    "author": "Author",
+    "more": "more..."
+  },
   "Sidebar": {
     "Buttons": {
       "Discord": {

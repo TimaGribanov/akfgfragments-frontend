@@ -1,0 +1,9 @@
+#import { PostPreview } from "../fragments.gql"
+
+query getAllPosts($language: LanguageCodeFilterEnum) {
+    posts(where: {language: $language}) {
+        edges {
+            ...PostPreview
+        }
+    }
+}

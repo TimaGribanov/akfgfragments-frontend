@@ -1,5 +1,5 @@
-import React, {use} from 'react'
-import {setRequestLocale} from 'next-intl/server'
+import React, { use } from 'react'
+import { setRequestLocale } from 'next-intl/server'
 import Header from '@/app/components/Header'
 import MainBlock from '@/app/components/MainBlock'
 import Footer from '@/app/components/Footer'
@@ -8,8 +8,8 @@ type Props = {
     params: Promise<{ locale: string }>;
 }
 
-export default function HomePage({params}: Props) {
-    const {locale} = use(params)
+export default function HomePage({ params }: Props) {
+    const { locale } = use(params)
 
     setRequestLocale(locale)
 
