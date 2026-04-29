@@ -1,26 +1,16 @@
-@import "tailwindcss";
-
-@custom-variant dark (&:where(.dark, .dark *));
-
-@theme static {
+:root {
     --font-noto-serif: var(--font-noto-serif);
     --font-shippori-mincho: var(--font-shippori-mincho);
     --font-nunito: var(--font-nunito);
 
     /*light theme*/
-    --main-colour: #fBf6e8;
-    --text-colour: #323031;
-    --link-underline-colour: #628395;
-    --button-colour: #6ba368;
-    --error-colour: #c05746;
+    --main-colour: light-dark(#fbf6e8, #242124);
+    --text-colour: light-dark(#323031, #fffff0);
+    --link-underline-colour: light-dark(#628395, #7bafd4);
+    --button-colour: light-dark(#6ba368, #5e8c61);
+    --error-colour: light-dark(#c05746, #c84630);
 
-    /*dark-theme*/
-    --main-colour-dark: #2b2d42;
-    --text-colour-dark: #eaf0ce;
-    --link-underline-colour-dark: #c6b9cd;
-    --button-colour-dark: #5e8c61;
-    --error-colour-dark: #c84630;
-
+    /*button colours*/
     --discord-colour: #5865f2;
     --instagram-colour: #ff0069;
     --twitter-colour: #00acee;
@@ -28,7 +18,8 @@
 }
 
 a:hover:not(#logo):not(.button) {
-    @apply underline decoration-10 decoration-(--link-underline-colour) dark:decoration-(--link-underline-colour-dark) -underline-offset-3;
+    text-decoration: underline solid var(--link-underline-colour) 10px;
+    text-underline-offset: 3px;
     text-decoration-skip-ink: none;
 }
 
@@ -37,5 +28,11 @@ main {
 }
 
 h2 {
-    font-size: var(--text-xl);
+    font-size: 1rem;
+}
+
+#logo {
+    color: var(--main-colour) !important;
+    position: relative;
+    top: -4px;
 }

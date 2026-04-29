@@ -1,0 +1,112 @@
+aside {
+    width: 25%;
+}
+
+.sidebar-block {
+    padding: 0.75rem;
+}
+
+.sidebar-block > p {
+    width: 75%;
+    margin: 0 auto;
+}
+
+.sidebar-block > *:not(:last-child) {
+    text-align: center;
+    margin-bottom: 0.75rem !important;
+}
+
+.sidebar-block .button {
+    display: block;
+    width: 35%;
+    text-align: center;
+    border: 2px;
+    border-radius: 0.75rem;
+    padding: 0.5rem;
+    margin: 0 auto;
+}
+
+.sidebar-block .button:hover {
+    text-decoration: none;
+}
+
+.sidebar-block button {
+    cursor: pointer;
+}
+
+.sidebar-block .button span {
+    margin-left: 0.25rem;
+}
+
+.separator {
+    width: 60%;
+    color: var(--text-colour);
+    margin: 1rem auto;
+}
+
+@media (prefers-color-scheme: dark) {
+    .discord {
+        background-color: var(--discord-colour);
+    }
+
+    .discord:hover {
+        color: var(--discord-colour);
+        border-color: var(--text-colour);
+        background-color: var(--text-colour);
+    }
+
+    .instagram {
+        background-color: var(--instagram-colour);
+    }
+
+    .instagram:hover {
+        color: var(--instagram-colour);
+        border-color: var(--text-colour);
+        background-color: var(--text-colour);
+    }
+
+    .twitter {
+        background-color: var(--twitter-colour);
+    }
+
+    .twitter:hover {
+        color: var(--twitter-colour);
+        border-color: var(--text-colour);
+        background-color: var(--text-colour);
+    }
+
+    .kofi {
+        background-color: var(--kofi-colour);
+    }
+
+    .kofi:hover {
+        color: var(--kofi-colour);
+        border-color: var(--text-colour);
+        background-color: var(--text-colour);
+    }
+}
+
+.discord:hover {
+    background-color: var(--discord-colour);
+    color: var(--main-colour);
+    border-color: var(--text-colour);
+}
+
+.instagram:hover {
+    background-color: var(--instagram-colour);
+    color: var(--main-colour);
+    border-color: var(--text-colour);
+}
+
+
+.twitter:hover {
+    background-color: var(--twitter-colour);
+    color: var(--main-colour);
+    border-color: var(--text-colour);
+}
+
+.kofi:hover {
+    background-color: var(--kofi-colour);
+    color: var(--main-colour);
+    border-color: var(--text-colour);
+}

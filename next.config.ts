@@ -10,6 +10,10 @@ const nextConfig: NextConfig = {
             '*.gql': {
                 loaders: ['graphql-tag/loader'],
                 as: "*.js"
+            },
+            '*.svg': {
+                loaders: ['turbopack-inline-svg-loader'],
+                as: '*.js'
             }
         },
         resolveExtensions: ['.ts', '.tsx', '.js', '.jsx', '.mjs', '.gql', '.graphql']
